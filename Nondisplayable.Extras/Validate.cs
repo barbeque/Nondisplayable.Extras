@@ -85,6 +85,14 @@ namespace Nondisplayable.Extras
             }
         }
 
+        public static void IsEnumType<T>([CallerMemberName] string callingMember = "unknown", [CallerFilePath] string callingFile = "unknown", [CallerLineNumber] int callingLineNumber = -1)
+        {
+            if(!typeof(T).IsEnum)
+            {
+                Fail($"The type '{typeof(T).FullName}' is not an enum type.", callingMember, callingFile, callingLineNumber);
+            }
+        }
+
         private static void Fail(string message, string callingMember, string callingFilePath, int lineNumber)
         {
             var fullMessage = $"{message}\nThe assertion failed in {callingMember} ({callingFilePath}:{lineNumber}).";
